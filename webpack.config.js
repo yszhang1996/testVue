@@ -40,7 +40,7 @@ module.exports = {
       4.当最后一个loader调用完毕，会把处理的结果，直接交给webpack进行打包合并，最终输出到bundle.js中去
       */
       { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },//这是配置处理less文件的第三方loader规则
-      {test:/\.(ttf|eot|svg|woff|woff2)$/,use:'url-loader'},//处理字体文件的loader
+      {test:/\.(ttf|eot|svg|woff|woff2|jpg|png)$/,use:'url-loader'},//处理字体文件的loader
       {test:/\.js$/,use:'babel-loader',exclude:/node_modules/},//这是配置Babel来转换高级的ES语法
       {test:/\.vue$/,use:'vue-loader'}, //这是处理vue文件的配置项
     ]
