@@ -37,8 +37,10 @@
 <style lang="scss" scoped>
 .app-container{
   padding-top: 40px;
+  padding-bottom: 50px;
   overflow-x: hidden;
   position: absolute;
+  width: 100%;
 }
 .component-fade-enter-active, .component-fade-leave-active {
   transition: all .5s ease;
