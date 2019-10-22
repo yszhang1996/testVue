@@ -16,7 +16,7 @@ module.exports = {
     //配置dev-server命令参数的第二种形式，相对来说，麻烦一点
     // --open --port 10016 --hot
     open: true,//自动打开浏览器
-    port: 10016,//设置启动时候的运行端口
+    port: 10017,//设置启动时候的运行端口
     hot: true//启用热更新的第一步
   },
   plugins: [

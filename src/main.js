@@ -31,6 +31,8 @@ Vue.filter('dataFormat', function(dataStr,pattern="YYYY-MM-DD HH:mm:ss"){
 })
 //引入Vue-Resource请求的全局路径
 Vue.http.options.root='http://www.liulongbin.top:3005';
+//全局设置post提交时候表单数据格式组织形式
+Vue.http.options.emulateJSON = true;
 //引入app根组件
 var vm = new Vue({
 	el:'#app',

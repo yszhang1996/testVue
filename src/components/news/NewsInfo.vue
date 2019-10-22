@@ -60,7 +60,5 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  .content {
-  }
 }
 </style>
