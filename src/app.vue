@@ -85,4 +85,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.mint-header{
+  z-index: 99;
+}
 </style>
