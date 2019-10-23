@@ -19,6 +19,11 @@ import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
 //安装mintUI提供的懒加载
 /* Vue.use(Lazyload); */
+//引入vue的缩略图预览插件
+import VuePreview from 'vue-preview'
+// 安装缩略图预览插件
+Vue.use(VuePreview)
+
 //引入路由
 import VueRouter from 'vue-router'
 //安装路由
