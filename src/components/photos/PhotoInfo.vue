@@ -35,7 +35,7 @@ export default {
       list: []
     };
   },
-  created() {
+  mounted:function() {
     this.getPhotoInfo();
     this.getThumbs();
   },
