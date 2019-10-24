@@ -1,11 +1,6 @@
 <template>
   <div>
-    <mt-swipe :auto="4000">
-      <!-- 在组件中使用v-for循环一定要使用v-bind绑定 -->
-      <mt-swipe-item v-for="item in Swipes" :key="item.id">
-        <img :src="item.img" alt />
-      </mt-swipe-item>
-    </mt-swipe>
+    <swiper :swipelist="Swipes"></swiper>
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <router-link to="/home/newslist">
@@ -49,6 +44,7 @@
 
 <script>
 import { Toast } from "mint-ui";
+import swiper from '../subcomponents/swiper.vue';
 export default {
   data() {
     return {
@@ -57,6 +53,7 @@ export default {
   },
   created() {
     this.getSwipe();
+    
   },
   methods: {
     getSwipe() {
@@ -65,12 +62,16 @@ export default {
         .then(result => {
           if (result.body.status === 0) {
             this.Swipes = result.body.message;
-            console.log(result);
+            console.log(result.body.message);
+            console.log(this.Swipes);
           } else {
             Toast("加载轮播图失败");
           }
         });
     }
+  },
+  components:{
+    swiper
   }
 };
 </script>
@@ -86,23 +87,5 @@ export default {
 }
 .mui-media-body{
     font-size: 13px !important;
-}
-.mint-swipe {
-  height: 300px;
-  .mint-swipe-item {
-    img {
-      width: 100%;
-      height: 100%;
-    }
-    &:nth-child(1) {
-      background-color: red;
-    }
-    &:nth-child(1) {
-      background-color: blue;
-    }
-    &:nth-child(1) {
-      background-color: green;
-    }
-  }
 }
 </style>
