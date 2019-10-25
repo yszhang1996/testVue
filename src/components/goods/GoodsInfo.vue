@@ -7,14 +7,23 @@
     <!-- 商品购买区域 -->
 
     <div class="mui-card">
-      <div class="mui-card-header">商品的名称标题</div>
+      <div class="mui-card-header">{{goodsinfo.title}}</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <p class="price">
-            <span>市场价：¥<del>2399</del></span>
-            <span>销售价：¥<span class="now_price">1999</span></span>
+            <span>
+              市场价：¥
+              <del>{{goodsinfo.market_price}}</del>
+            </span>
+            <span>
+              销售价：¥
+              <span class="now_price">{{goodsinfo.sell_price}}</span>
+            </span>
           </p>
-          <p>购买数量：<numbox></numbox></p>
+          <p>
+            购买数量：
+            <numbox></numbox>
+          </p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
             <mt-button type="danger" size="small">加入购物车</mt-button>
@@ -26,19 +35,19 @@
     <!-- 商品参数区域 -->
 
     <div class="mui-card">
-      <div
-        class="mui-card-header mui-card-media"
-        style="height:40vw;background-image:url(../images/cbd.jpg)"
-      ></div>
+      <div class="mui-card-header">
+        <span>商品参数</span>
+      </div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          <p>Posted on January 18, 2016</p>
-          <p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+          <p>商品货号：{{goodsinfo.goods_no}}</p>
+          <p>库存情况：{{goodsinfo.stock_quantity}}件</p>
+          <p>上架时间：{{goodsinfo.add_time|dataFormat}}</p>
         </div>
       </div>
       <div class="mui-card-footer">
-        <a class="mui-card-link">Like</a>
-        <a class="mui-card-link">Read more</a>
+        <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -46,19 +55,20 @@
 
 <script>
 //引入轮播图组件
-import swiper from '../subcomponents/swiper.vue';
+import swiper from "../subcomponents/swiper.vue";
 //引入数字选择框组件
-import numbox from '../subcomponents/goodsinfo_numbox.vue';
+import numbox from "../subcomponents/goodsinfo_numbox.vue";
 export default {
   data() {
     return {
-        id:this.$route.params.id,//路由参数中的id挂在到data上，方便调用
-        Swipes:[],//轮播图的数据
-
+      id: this.$route.params.id, //路由参数中的id挂在到data上，方便调用
+      Swipes: [], //轮播图的数据
+      goodsinfo: {} //获取到的商品的信息
     };
   },
   created() {
-      this.getSwipe();
+    this.getSwipe();
+    this.getGoodsInfo();
   },
   methods: {
     getSwipe() {
@@ -69,11 +79,27 @@ export default {
           Toast("获取图片详情失败");
         }
       });
+    },
+    getGoodsInfo() {
+      //获取商品的信息
+      this.$http.get("api/goods/getinfo/" + this.id).then(result => {
+        if (result.body.status === 0) {
+          this.goodsinfo = result.body.message[0];
+        }
+      });
+    },
+    goDesc(id){
+      //点击使用编程式导航跳转到图文介绍页面
+      this.$router.push({name:"goodsdesc",params:{id}})
+    },
+    goComment(id){
+      //点击跳转到评论页面
+      this.$router.push({name:"goodscomment",params:{id}})
     }
   },
-  components:{
-      swiper,
-      numbox
+  components: {
+    swiper,
+    numbox
   }
 };
 </script>
@@ -82,10 +108,16 @@ export default {
 .goodsinfo-container {
   background-color: #eee;
   overflow: hidden;
-  .now_price{
+  .now_price {
     color: red;
     font-size: 16px;
     font-weight: bold;
+  }
+  .mui-card-footer {
+    display: block;
+    button {
+      margin: 15px 0;
+    }
   }
 }
 </style>
