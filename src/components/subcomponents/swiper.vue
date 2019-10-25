@@ -5,7 +5,7 @@
       <!-- 将来谁使用轮播图的组件，谁为我们传递Swipes -->
       <!-- 此时，轮播图应该是父组件向子组件传值 -->
       <mt-swipe-item v-for="item in swipelist" :key="item.id">
-        <img :src="item.img||item.src" alt />
+        <img :src="item.img||item.src" :class="{full:isfull}" />
       </mt-swipe-item>
     </mt-swipe>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ["swipelist"]
+  props: ["swipelist","isfull"]
 };
 </script>
 
@@ -21,11 +21,11 @@ export default {
 .mint-swipe {
   height: 300px;
   .mint-swipe-item {
+    text-align: center;
     img {
-      width: 100%;
       height: 100%;
     }
-    &:nth-child(1) {
+/*     &:nth-child(1) {
       background-color: red;
     }
     &:nth-child(1) {
@@ -33,7 +33,10 @@ export default {
     }
     &:nth-child(1) {
       background-color: green;
-    }
+    } */
   }
+}
+.full{
+  width: 100%;
 }
 </style>
