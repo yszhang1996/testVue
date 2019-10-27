@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <!-- header -->
-    <mt-header fixed title="商城项目"></mt-header>
+    <mt-header fixed title="商城项目">
+  <span @click="goBack" slot="left" v-show="flag">
+    <mt-button icon="back">返回</mt-button>
+  </span>
+    </mt-header>
 
     <!-- 路由 router-view -->
 	<transition name="component-fade" mode="out-in">
@@ -19,7 +23,7 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="mui-tab-item-llb" to="/shopcar">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">1</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{$store.getters.getAllCount}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item-llb" to="/search">
@@ -32,6 +36,31 @@
 </template>
 
 <script>
+export default{
+  data(){
+    return {
+      flag:false
+    }
+  },
+  methods: {
+    goBack(){
+      //点击后退
+      this.$router.go(-1);
+    }
+  },
+  created() {
+    this.flag = this.$route.path==='/home' ? false:true
+  },
+  watch: {
+    '$route.path':function(newVal){
+      if(newVal==='/home'){
+        this.flag=false;
+      }else{
+        this.flag=true;
+      }
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +72,7 @@
   width: 100%;
 }
 .component-fade-enter-active, .component-fade-leave-active {
-  transition: all .5s ease;
+  transition: all .3s ease;
 }
 .component-fade-enter
 /* .component-fade-leave-active for below version 2.1.8 */ {
